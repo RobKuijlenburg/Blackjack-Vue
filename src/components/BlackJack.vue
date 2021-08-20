@@ -1,9 +1,6 @@
 <template>
   <div>
     <button @click="createDeck">Create</button>
-    <ul>
-      <li v-for="deck in showDeck" :key="deck.id">{{deck.value}}</li>
-    </ul>
   </div>
 </template>
 

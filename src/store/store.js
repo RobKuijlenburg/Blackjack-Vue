@@ -15,7 +15,9 @@ export const store = new Vuex.Store({
 
     mutations: {
         clearDeck(state){
-            state.deck = []
+            state.deck = [],
+            state.dealer = [],
+            state.player = []
         },
 
         createDeck(state){
@@ -47,12 +49,28 @@ export const store = new Vuex.Store({
                 state.deck[locatie1] = state.deck[locatie2];
                 state.deck[locatie2] = tmp;
             }
-        }
+        },
+
+        deal(state){
+            for (let i = 0; i < 2; i++) {
+                state.player.push(state.deck[0])
+                state.deck.shift()
+                state.dealer.push(state.deck[0])
+                state.deck.shift()
+            }
+        },     
+        
         
     },
 
     getters: {
-        
+        getPlayer(state) {
+            return state.player;
+        },
+
+        getDealer(state){
+            return state.dealer;
+        }
     },
 
     actions: {
@@ -60,7 +78,9 @@ export const store = new Vuex.Store({
             context.commit('clearDeck')
             context.commit('createDeck')
             setTimeout(() => {context.commit('shuffleDeck')}, 200);
+            setTimeout(() => {context.commit('deal')}, 400);
         }
-    }
+    },
+    
 
 })

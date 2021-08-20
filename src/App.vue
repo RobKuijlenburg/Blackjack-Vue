@@ -1,27 +1,47 @@
 <template>
   <div id="app">
     <BlackJack/>
+    <div class="block w-100">
+      <div>
+        <Dealer/>
+      </div>
+
+      <div class="left">
+        <Player/>
+      </div>
+
+    </div>
+
   </div>
 </template>
 
 <script>
 import BlackJack from './components/BlackJack.vue'
+import Player from './components/Player.vue'
+import Dealer from './components/Dealer.vue'
 
 export default {
   name: 'App',
   components: {
-    BlackJack
+    BlackJack,
+    Player,
+    Dealer
   }
 }
 </script>
 
 <style>
+
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  font-family: sans-serif;
 }
+
+.flex {
+  display: block;
+}
+
+.w-100 {
+  width: 800px
+}
+
 </style>
