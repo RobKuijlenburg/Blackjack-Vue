@@ -1,6 +1,7 @@
 <template>
     <div class="f-right">
         <h2>Dealer</h2>
+        <p>{{countScore}}</p>
         <div class="card" v-for="dealer in showDealer" :key="dealer.id">
             <span>{{dealer.Soort}}</span>
             <span>{{dealer.Waarde}}</span>
@@ -15,6 +16,13 @@ export default {
     computed: {
         showDealer(){
             return this.$store.getters.getDealer;
+        },
+
+        countScore() {
+            let dealerScore = this.$store.getters.getDealer.reduce(function (accumulator, currentValue) {
+                return accumulator + currentValue.Value;
+            }, 0);
+            return dealerScore;
         }
     }
 

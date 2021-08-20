@@ -60,11 +60,36 @@ export const store = new Vuex.Store({
             }
         },     
         
+        hitMe(state){
+            state.player.push(state.deck[0]);
+            state.deck.shift();
+        },
         
+        stay(state){
+            console.log(this.dealerScore);
+            while (this.dealerScore < 16) {
+                if (this.dealerScore < 16) {
+                    state.dealer.push(state.deck[0])
+                    state.deck.shift()
+                } else if (this.dealerScore === 16 && this.playerScore === 16) {
+                    break;
+                } else if (this.dealerScore > 16) {
+                    break;
+                }
+            }
+        }
     },
 
     getters: {
         getPlayer(state) {
+            if (state.player.card.Soort == 'Harten')
+            state.player.card.Soort == '&hearts;';
+            else if (state.player.card.Soort == 'Schoppen')
+            state.player.card.Soort == '&spades;';
+            else if (state.player.card.Soort == 'Ruiten')
+            state.player.card.Soort == '&diams;';
+            else
+            state.player.card.Soort == '&clubs;';
             return state.player;
         },
 
@@ -79,8 +104,14 @@ export const store = new Vuex.Store({
             context.commit('createDeck')
             setTimeout(() => {context.commit('shuffleDeck')}, 200);
             setTimeout(() => {context.commit('deal')}, 400);
+        },
+
+        hitMe(context){
+            context.commit('hitMe');
+        },
+
+        stay(context){
+            context.commit('stay');
         }
     },
-    
-
 })
