@@ -82,6 +82,7 @@ export const store = new Vuex.Store({
 
     getters: {
         getPlayer(state) {
+            for ()
             if (state.player.card.Soort == 'Harten')
             state.player.card.Soort == '&hearts;';
             else if (state.player.card.Soort == 'Schoppen')
