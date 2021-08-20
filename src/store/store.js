@@ -6,7 +6,8 @@ Vue.use(Vuex);
 export const store = new Vuex.Store({
 
     state: {
-        deck: {name: 'pancakes', value: 22},
+        deck: [{name: 'pancakes', value: 22},
+        {name: 'Walkies', value: 23}],
         dealer: {name: 'John', value: 0},
         player: {name: 'Jack', value: 5}
     },

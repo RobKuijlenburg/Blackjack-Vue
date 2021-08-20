@@ -1,14 +1,21 @@
 <template>
   <div>
-    
+    <ul>
+      <li v-for="deck in showDeck" :key="deck">{{deck.value}}</li>
+    </ul>
   </div>
 </template>
 
 <script>
 export default {
   name: 'BlackJack',
-  props: {
-    msg: String
+
+  computed: {
+
+    showDeck(){
+      return this.$store.state.deck;
+    }
+
   }
 }
 </script>
