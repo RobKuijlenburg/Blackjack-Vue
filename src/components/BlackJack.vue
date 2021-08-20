@@ -1,7 +1,8 @@
 <template>
   <div>
+    <button @click="createDeck">Create</button>
     <ul>
-      <li v-for="deck in showDeck" :key="deck">{{deck.value}}</li>
+      <li v-for="deck in showDeck" :key="deck.id">{{deck.value}}</li>
     </ul>
   </div>
 </template>
@@ -9,6 +10,14 @@
 <script>
 export default {
   name: 'BlackJack',
+
+  methods:{
+
+    createDeck() {
+      this.$store.dispatch('spawnDeck')
+    }
+
+  },
 
   computed: {
 
