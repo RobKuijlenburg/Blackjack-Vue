@@ -1,15 +1,19 @@
 <template>
   <div class="f-left">
       <h2>Player</h2>
-      <p>{{countScore}}</p>
+      <p>{{showScore}}</p>
         <div>
         <div class="card" v-for="player in showPlayer" :key="player.id">
-            <span>{{player.Soort}}</span>
+            <span class="icoon" v-html="player.Icon"></span>
             <span>{{player.Waarde}}</span>
         </div>
+        <div class="buttons">
+            <button @click="hitMe()">Hit</button>
+            <button @click="stay()">Stay</button>
         </div>
-        <button @click="hitMe()">Hit</button>
-        <button @click="stay()">Stay</button>
+        </div>
+
+
   </div>
 </template>
 
@@ -18,15 +22,13 @@ export default {
   name: 'Player',
 
     methods: {
-        hitMe() {
-            this.$store.dispatch('hitMe');
+        hitMe(){
+            this.$parent.hitMe();
         },
 
         stay(){
-            this.$store.dispatch('stay');
-        },
-
-
+            this.$parent.stay();
+        }
     },
 
     computed: {
@@ -34,11 +36,8 @@ export default {
             return this.$store.getters.getPlayer;
         },
 
-        countScore() {
-            let playerScore = this.$store.getters.getPlayer.reduce(function (accumulator, currentValue) {
-                return accumulator + currentValue.Value;
-            }, 0);
-            return playerScore;
+        showScore(){
+            return this.$store.getters.getPlayerScore;
         }
     }
 }
@@ -64,4 +63,11 @@ export default {
     margin: 3px;
 }
 
+.icoon {
+    font-size: 1.2rem;
+}
+
+.buttons {
+    margin-top: 20px;
+}
 </style>

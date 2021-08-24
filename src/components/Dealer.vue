@@ -1,9 +1,9 @@
 <template>
     <div class="f-right">
         <h2>Dealer</h2>
-        <p>{{countScore}}</p>
+        <p>{{showScore}}</p>
         <div class="card" v-for="dealer in showDealer" :key="dealer.id">
-            <span>{{dealer.Soort}}</span>
+            <span class="icoon" v-html="dealer.Icon"></span>
             <span>{{dealer.Waarde}}</span>
         </div>
     </div>
@@ -18,11 +18,8 @@ export default {
             return this.$store.getters.getDealer;
         },
 
-        countScore() {
-            let dealerScore = this.$store.getters.getDealer.reduce(function (accumulator, currentValue) {
-                return accumulator + currentValue.Value;
-            }, 0);
-            return dealerScore;
+        showScore(){
+            return this.$store.getters.getDealerScore;
         }
     }
 
@@ -48,5 +45,7 @@ export default {
     margin: 3px;
 }
 
-
+.icoon {
+    font-size: 1.2rem;
+}
 </style>

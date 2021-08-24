@@ -7,6 +7,7 @@ export const store = new Vuex.Store({
 
     state: {
         soort: ["Harten", "Schoppen", "Ruiten", "Klaveren"],
+        icoon: ["&hearts;", "&spades;", "&diams;", "&clubs;"],
         waarden: ["2", "3", "4", "5", "6", "7", "8", "9", "10", "B", "V", "H", "A"],
         deck: [],
         dealer: [],
@@ -34,6 +35,7 @@ export const store = new Vuex.Store({
                     const card = {
                         Waarde: state.waarden[i],
                         Soort: state.soort[x],
+                        Icon: state.icoon[x], 
                         Value: value
                     }
                     state.deck.push(card);
@@ -66,36 +68,30 @@ export const store = new Vuex.Store({
         },
         
         stay(state){
-            console.log(this.dealerScore);
-            while (this.dealerScore < 16) {
-                if (this.dealerScore < 16) {
-                    state.dealer.push(state.deck[0])
-                    state.deck.shift()
-                } else if (this.dealerScore === 16 && this.playerScore === 16) {
-                    break;
-                } else if (this.dealerScore > 16) {
-                    break;
-                }
-            }
+            state.dealer.push(state.deck[0]);
+            state.deck.shift();   
         }
     },
 
     getters: {
         getPlayer(state) {
-            for ()
-            if (state.player.card.Soort == 'Harten')
-            state.player.card.Soort == '&hearts;';
-            else if (state.player.card.Soort == 'Schoppen')
-            state.player.card.Soort == '&spades;';
-            else if (state.player.card.Soort == 'Ruiten')
-            state.player.card.Soort == '&diams;';
-            else
-            state.player.card.Soort == '&clubs;';
             return state.player;
         },
 
         getDealer(state){
             return state.dealer;
+        },
+
+        getPlayerScore(state) {
+            return state.player.reduce(function (accumulator, currentValue) { 
+                return accumulator + currentValue.Value; }, 
+            0)            
+        },
+
+        getDealerScore(state) {
+            return state.dealer.reduce(function (accumulator, currentValue) { 
+                return accumulator + currentValue.Value; }, 
+            0)            
         }
     },
 
