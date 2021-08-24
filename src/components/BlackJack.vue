@@ -40,8 +40,6 @@ export default {
     stay(){
       let dealerScore = this.$store.getters.getDealerScore;
       let playerScore = this.$store.getters.getPlayerScore;
-      console.log(dealerScore);
-      console.log(playerScore);
       while (dealerScore < 16) {
         if (dealerScore < 16) {
           this.$store.dispatch('stay');
@@ -58,11 +56,9 @@ export default {
   },
 
   computed: {
-
     showDeck(){
       return this.$store.state.deck;
     }
-
   }
 }
 </script>
