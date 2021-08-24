@@ -41,14 +41,17 @@ export default {
       let dealerScore = this.$store.getters.getDealerScore;
       let playerScore = this.$store.getters.getPlayerScore;
       console.log(dealerScore);
+      console.log(playerScore);
       while (dealerScore < 16) {
         if (dealerScore < 16) {
           this.$store.dispatch('stay');
+
         } else if (dealerScore === 16 && playerScore === 16) {
           break;
         } else if (dealerScore > 16) {
           break;
         }
+        let dealerScore = this.$store.getters.getDealerScore;
       }
     }
 
