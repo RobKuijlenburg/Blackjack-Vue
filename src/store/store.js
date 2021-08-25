@@ -82,18 +82,6 @@ export const store = new Vuex.Store({
             return state.dealer;
         },
 
-        getOnDeal(state){
-            for(let i = 0; i < state.dealer.length; i++){
-                if (state.dealer[0]) {
-                    state.dealer.card.Icon = '';
-                    state.dealer.card.Value = 0;
-                    state.dealer.card.Waarde = '';
-                    state.dealer.card.Soort = '';
-                }   
-            }
-            return state.dealer;
-        },
-
         getPlayerScore(state) {
             return state.player.reduce(function (accumulator, currentValue) { 
                 return accumulator + currentValue.Value; }, 
