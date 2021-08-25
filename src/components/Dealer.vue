@@ -1,10 +1,13 @@
 <template>
     <div class="f-right">
         <h2>Dealer</h2>
-        <p>{{showScore}}</p>
-        <div class="card" v-for="dealer in showDealer" :key="dealer.id">
-            <span class="icoon" v-html="dealer.Icon"></span>
-            <span>{{dealer.Waarde}}</span>
+        <p v-if="spawnDeck" >{{showScore}}</p>
+        <p v-else><span v-if="showDealer[0]">{{showDealer[0].Value}}</span></p>
+        <div class="card" v-for="(dealer, i) in showDealer" :key="dealer.id" >
+            <span class="icoon" v-if="spawnDeck || i == 0" v-html="dealer.Icon"></span>
+            <span class="icoon" v-else v-html="'&#63;'"></span>
+            <span v-if="spawnDeck || i == 0">{{dealer.Waarde}}</span>
+            <span v-else>?</span>
         </div>
     </div>
 </template>
@@ -12,6 +15,10 @@
 <script>
 export default {
   name: 'Dealer',
+
+    props: {
+        spawnDeck: Boolean
+    },
 
     computed: {
         showDealer(){
@@ -22,7 +29,6 @@ export default {
             return this.$store.getters.getDealerScore;
         }
     }
-
 }
 </script>
 

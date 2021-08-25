@@ -70,6 +70,22 @@ export const store = new Vuex.Store({
         stay(state){
             state.dealer.push(state.deck[0]);
             state.deck.shift();   
+        },
+
+        aasmanipPlayer(state){
+            for (let i = 0; i < state.player.length; i++){
+                if(state.player[i].Waarde === "A"){
+                    state.player[i].Value = 1;
+                }
+            } 
+        },
+
+        aasmanipDealer(state){
+            for (let i = 0; i < state.dealer.length; i++){
+                if(state.dealer[i].Waarde === "A"){
+                    state.dealer[i].Value = 1;
+                }
+            } 
         }
     },
 
@@ -109,6 +125,14 @@ export const store = new Vuex.Store({
 
         stay(context){
             context.commit('stay');
+        },
+
+        aasmanipPlayer(context){
+            context.commit('aasmanipPlayer');
+        },
+
+        aasmanipDealer(context){
+            context.commit('aasmanipDealer');
         }
     },
 })

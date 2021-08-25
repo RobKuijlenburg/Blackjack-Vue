@@ -5,7 +5,7 @@
         <span>{{checkPlayerCondition}}</span>  
         <span>{{this.message}}</span>
       <div>
-        <Dealer />
+        <Dealer :spawnDeck="spawnDeck"/>
       </div>
 
       <div class="left">
@@ -30,7 +30,8 @@ export default {
 
   data: function(){
     return {
-      message: ''
+      message: '',
+      spawnDeck: false
     }
   },
 
@@ -40,19 +41,31 @@ export default {
 
   methods:{
     createDeck() {
+      this.spawnDeck = false;
       this.message = '';
       this.$store.dispatch('spawnDeck');
     },
 
     hitMe() {
       this.$store.dispatch('hitMe');
+      for (let i = 0; i < this.$store.getters.getPlayer.length; i++) {
+        if (this.playerScore > 21 && this.$store.getters.getPlayer[i].Waarde === "A") {
+            this.$store.dispatch('aasmanipPlayer');
+        }
+      }
       setTimeout(() => {this.checkPlayerCondition;}, 100);
     },
 
     stay(){
+      this.spawnDeck = true;
       while (this.dealerScore < 16) {
         if (this.dealerScore < 16) {
           this.$store.dispatch('stay');
+            for (let i = 0; i < this.$store.getters.getDealer.length; i++) {
+              if (this.dealerScore > 21 && this.$store.getters.getDealer[i].Waarde === "A") {
+              this.$store.dispatch('aasmanipDealer');
+              }
+            }
         } else if (this.dealerScore === 16 && this.playerScore === 16) {
           break;
         } else if (this.dealerScore > 16) {
