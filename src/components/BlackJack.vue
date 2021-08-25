@@ -2,14 +2,15 @@
   <div>
     <button @click="createDeck">Create</button>
       <div class="block w-100">
+        <span>{{checkPlayerCondition}}</span>  
+        <span>{{this.message}}</span>
       <div>
-        <Dealer/>
+        <Dealer />
       </div>
 
       <div class="left">
         <Player/>
       </div>
-
     </div>
   </div>
 
@@ -27,38 +28,73 @@ export default {
     Dealer
   },
 
-  methods:{
+  data: function(){
+    return {
+      message: ''
+    }
+  },
 
+  created(){
+    this.$store.dispatch('spawnDeck');
+  },
+
+  methods:{
     createDeck() {
-      this.$store.dispatch('spawnDeck')
+      this.message = '';
+      this.$store.dispatch('spawnDeck');
     },
 
     hitMe() {
       this.$store.dispatch('hitMe');
+      setTimeout(() => {this.checkPlayerCondition;}, 100);
     },
 
     stay(){
-      let dealerScore = this.$store.getters.getDealerScore;
-      let playerScore = this.$store.getters.getPlayerScore;
-      while (dealerScore < 16) {
-        if (dealerScore < 16) {
+      while (this.dealerScore < 16) {
+        if (this.dealerScore < 16) {
           this.$store.dispatch('stay');
-
-        } else if (dealerScore === 16 && playerScore === 16) {
+        } else if (this.dealerScore === 16 && this.playerScore === 16) {
           break;
-        } else if (dealerScore > 16) {
+        } else if (this.dealerScore > 16) {
           break;
         }
-        let dealerScore = this.$store.getters.getDealerScore;
       }
-    }
+      setTimeout(() => {this.checkWin();}, 200);  
+    },
+  
+
+    checkWin() {
+      if (this.playerScore > this.dealerScore || this.dealerScore > 21){
+        this.playerWinScore += 1;
+        return this.message = 'Player 1 Wins';
+      } else if (this.playerScore < this.dealerScore){
+        this.dealerWinScore += 1;
+        return this.message = 'Dealer Wins';
+      } else if (this.playerScore === this.dealerScore) {
+        return this.message = 'Draw';
+      }
+    },
 
   },
 
   computed: {
+
+    checkPlayerCondition() {
+      console.log(this.playerScore);
+      if (this.playerScore === 21){
+        return 'Black Jack. Player 1 wins!!'
+      } else if(this.playerScore > 21 || this.$store.getters.getPlayer.length > 5) {
+        return 'Player 1 busts';
+      }
+      return ''
+    },
+
+    dealerScore(){ return this.$store.getters.getDealerScore},
+    playerScore(){ 
+      return this.$store.getters.getPlayerScore},
     showDeck(){
       return this.$store.state.deck;
-    }
+    },
   }
 }
 </script>
