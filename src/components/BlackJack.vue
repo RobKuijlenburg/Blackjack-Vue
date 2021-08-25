@@ -93,7 +93,6 @@ export default {
   computed: {
 
     checkPlayerCondition() {
-      console.log(this.playerScore);
       if (this.playerScore === 21){
         return 'Black Jack. Player 1 wins!!'
       } else if(this.playerScore > 21 || this.$store.getters.getPlayer.length > 5) {
